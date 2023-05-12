@@ -35,5 +35,33 @@ from sklearn.metrics import confusion_matrix, classification_report
 ## Data Preprocessing
 
 ## Modeling Process
-1. Parameter Setting
-I set the parameter image_width and image_height = 16 equal to the image size which is 16x16. The image_color_channel_size = 255 due to RGB.  
+1. Parameter Setting : I set the parameter image_width and image_height = 16 equal to the image size which is 16x16. The image_color_channel_size = 255 due to RGB. 
+```sh
+## image_widht
+image_widht = 16
+## image_height
+image_height = 16
+## image_color_channel_size
+image_color_channel_size = 255
+## image_size
+image_size = (image_widht, image_height)
+## batch_size
+batch_size = 8
+## epochs
+epochs = 20
+## learning_rate
+learning_rate = 0.01
+## class_names
+class_names = ['Normal','Crack']
+```
+2. Loading Image and Rescaling : The tf.keras.preprocessing.image.ImageDataGenerator is used to convert image to array and rescale image. For train_gen, I set validation_split = 0.2 which is 20% of 50,000 images.
+```sh
+train_gen = tf.keras.preprocessing.image.ImageDataGenerator(
+    rescale=1./image_color_channel_size,
+    validation_split=0.2
+)
+
+test_gen = tf.keras.preprocessing.image.ImageDataGenerator(
+    rescale=1./image_color_channel_size
+)
+```
