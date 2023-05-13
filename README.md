@@ -65,3 +65,43 @@ test_gen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale=1./image_color_channel_size
 )
 ```
+Then, I load images from path in train_df and test_df the I have crated by using ImageDataGenerator.flow_from_dataframe. The parameter class_mode = binary because there are only two labels in this project which are ‘Normal’ and ‘Crack’. This can separate data into train, validation, and test. 
+```sh
+train_data = train_gen.flow_from_dataframe(
+    train_df,
+    x_col='filename',
+    y_col='label',
+    target_size=image_size,
+    color_mode='rgb',
+    class_mode='binary',
+    batch_size=batch_size,
+    shuffle=True,
+    seed=42,
+    subset='training'
+)
+
+val_data = train_gen.flow_from_dataframe(
+    train_df,
+    x_col='filename',
+    y_col='label',
+    target_size=image_size,
+    color_mode='rgb',
+    class_mode='binary',
+    batch_size=batch_size,
+    shuffle=True,
+    seed=42,
+    subset='validation'
+)
+
+test_data = test_gen.flow_from_dataframe(
+    test_df,
+    x_col='filename',
+    y_col='label',
+    target_size=image_size,
+    color_mode='rgb',
+    class_mode='binary',
+    batch_size=batch_size,
+    shuffle=False,
+    #seed=42
+)
+```
