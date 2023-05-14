@@ -105,3 +105,5 @@ test_data = test_gen.flow_from_dataframe(
     #seed=42
 )
 ```
+3. Training Model : Model is created by using TensorFlow Keras. First, the input layer is called by tf.keras.Input with shape = 16x16 as an image size and 3 refer to RGB color. In this project, I build two convolution layers. The first one contains 64 filters and the second one contains 128 filter layers. I set kernel_size 2x2 and use activation function as ReLu. And I also build Pooling two layers by using MaxPool size 2x2. Sequence of the model is shown in figure 11. Then, I use GlobalAveragePooling2D() to convert the output data from 2D to a 1D, which can then be fed into a fully connected layer. After that, in the output layer, I use the activation function as Sigmoid because the output of this model is binary.
+
