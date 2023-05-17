@@ -135,3 +135,4 @@ history = model.fit(
 )
 ```
 ## Results and Predictions
+As a result,
