@@ -135,4 +135,4 @@ history = model.fit(
 )
 ```
 ## Results and Predictions
-As a result,
+As a result, the accuracy of this model is 0.9869 with loss 0.0515. 
