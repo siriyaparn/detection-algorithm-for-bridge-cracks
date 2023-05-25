@@ -141,3 +141,12 @@ As a result, the accuracy of this model is 0.9869 with loss 0.0515. The longer t
 ![Model accuracy](Model_accuracy.png)
 
 After using this model to predict data in the test data set, the confusion matrix is used to evaluate this model. The True Positive and True Negative is high which means the model can predict mostly correctly as you can see in the report as below.
+
+![Confusion matrix](Confusion_matrix.png)
+
+## Prediction Result
+As a result, there are some images that model cannot detect correctly.
+- Text with **BLUE** color : correct
+- Text with **RED** color : wrong
+
+![Prediction Result](DetectExample.png)
