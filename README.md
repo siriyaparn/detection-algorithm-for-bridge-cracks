@@ -135,4 +135,9 @@ history = model.fit(
 )
 ```
 ## Results and Predictions
-As a result, the accuracy of this model is 0.9869 with loss 0.0515. 
+As a result, the accuracy of this model is 0.9869 with loss 0.0515. The longer the model train, the more accuracy and the lease loss as below.
+
+![The result of model](Result.png)
+![Model accuracy](Model_accuracy.png)
+
+After using this model to predict data in the test data set, the confusion matrix is used to evaluate this model. The True Positive and True Negative is high which means the model can predict mostly correctly as you can see in the report as below.
