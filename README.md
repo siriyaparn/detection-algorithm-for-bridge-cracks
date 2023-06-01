@@ -33,9 +33,44 @@ from sklearn.metrics import confusion_matrix, classification_report
 ```
 
 ## Data Preprocessing
+### Create train data frame
+To create a train data frame, I read train.txt file by using the " " [space] as a delimiter to separate text and create data frame with column Name to contain “no1.jpeg” and column label to contain “0”. Then, I convert this data frame to list because data in train.txt file shows only “no1.jpeg”, not a find path. Therefore, I create file path. The code in this part is shown as below. 
+
+```sh
+train = pd.read_csv('/kaggle/input/crack123/DBCC_Training_Data_Set/train.txt', sep=" ", header=None)
+train.columns = ["Name", "label",]
+
+#convert dataframe to list
+train_list =  list(train["Name"]) 
+```
+
+Then I create file path of each image by add path : /kaggle/input/crack123/DBCC_Training_Data_Set/train and create train_df.  The result of path creating and the code in this part are shown as below.
+
+```sh
+train_new = []
+for i in train_list:
+    new = "/kaggle/input/crack123/DBCC_Training_Data_Set/train/" + i
+    train_new.append(new)
+    
+with pd.option_context("display.max_colwidth", None):
+    train_df = pd.DataFrame(train_new, columns = ["filename"])
+train_df
+```
+![The result of df]()
+
+Then I replace data in column label in the train_df from 0 to be Normal and 1 to be Crack because the model this I use can detect only string cannot detect int. The result is shown as below.
+
+```sh
+train_df['label'] = train_df['label'].replace({0: 'Normal',1:'Crack'})
+```
+![The result of replace label]()
+
+### Create test data frame
+To create test data frame, I repeat create train data frame process.
 
 ## Modeling Process
-1. Parameter Setting : I set the parameter image_width and image_height = 16 equal to the image size which is 16x16. The image_color_channel_size = 255 due to RGB. 
+### Parameter Setting
+I set the parameter image_width and image_height = 16 equal to the image size which is 16x16. The image_color_channel_size = 255 due to RGB. 
 ```sh
 ## image_widht
 image_widht = 16
@@ -54,7 +89,8 @@ learning_rate = 0.01
 ## class_names
 class_names = ['Normal','Crack']
 ```
-2. Loading Image and Rescaling : The tf.keras.preprocessing.image.ImageDataGenerator is used to convert image to array and rescale image. For train_gen, I set validation_split = 0.2 which is 20% of 50,000 images.
+### Loading Image and Rescaling
+The tf.keras.preprocessing.image.ImageDataGenerator is used to convert image to array and rescale image. For train_gen, I set validation_split = 0.2 which is 20% of 50,000 images.
 ```sh
 train_gen = tf.keras.preprocessing.image.ImageDataGenerator(
     rescale=1./image_color_channel_size,
@@ -105,7 +141,8 @@ test_data = test_gen.flow_from_dataframe(
     #seed=42
 )
 ```
-3. Training Model : Model is created by using TensorFlow Keras. First, the input layer is called by tf.keras.Input with shape = 16x16 as an image size and 3 refer to RGB color. In this project, I build two convolution layers. The first one contains 64 filters and the second one contains 128 filter layers. I set kernel_size 2x2 and use activation function as ReLu. And I also build Pooling two layers by using MaxPool size 2x2. Sequence of the model is shown in figure 11. Then, I use GlobalAveragePooling2D() to convert the output data from 2D to a 1D, which can then be fed into a fully connected layer. After that, in the output layer, I use the activation function as Sigmoid because the output of this model is binary.
+### Training Model 
+Model is created by using TensorFlow Keras. First, the input layer is called by tf.keras.Input with shape = 16x16 as an image size and 3 refer to RGB color. In this project, I build two convolution layers. The first one contains 64 filters and the second one contains 128 filter layers. I set kernel_size 2x2 and use activation function as ReLu. And I also build Pooling two layers by using MaxPool size 2x2. Sequence of the model is shown in figure 11. Then, I use GlobalAveragePooling2D() to convert the output data from 2D to a 1D, which can then be fed into a fully connected layer. After that, in the output layer, I use the activation function as Sigmoid because the output of this model is binary.
 - The optimizer of this model is Adam with a learning rate 0.01 that I have set in the parameter setting.  The loss function of this model is binary_crossentropy and use accuracy for performance matrices.
 - This model is trained with 40,000 training data in 20 epochs with batch size = 8, 10,000 validation data is used to validate this model.
 ```sh
