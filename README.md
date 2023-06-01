@@ -56,14 +56,14 @@ with pd.option_context("display.max_colwidth", None):
     train_df = pd.DataFrame(train_new, columns = ["filename"])
 train_df
 ```
-![The result of df]()
+![The result of df](Result_df.png)
 
 Then I replace data in column label in the train_df from 0 to be Normal and 1 to be Crack because the model this I use can detect only string cannot detect int. The result is shown as below.
 
 ```sh
 train_df['label'] = train_df['label'].replace({0: 'Normal',1:'Crack'})
 ```
-![The result of replace label]()
+![The result of replace label](Replace_label.png)
 
 ### Create test data frame
 To create test data frame, I repeat create train data frame process.
