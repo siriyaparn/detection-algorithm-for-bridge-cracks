@@ -56,14 +56,14 @@ with pd.option_context("display.max_colwidth", None):
     train_df = pd.DataFrame(train_new, columns = ["filename"])
 train_df
 ```
-![The result of df](Result_df.png)
+![The result of df](picture/Result_df.png)
 
 Then I replace data in column label in the train_df from 0 to be Normal and 1 to be Crack because the model this I use can detect only string cannot detect int. The result is shown as below.
 
 ```sh
 train_df['label'] = train_df['label'].replace({0: 'Normal',1:'Crack'})
 ```
-![The result of replace label](Replace_label.png)
+![The result of replace label](picture/Replace_label.png)
 
 ### Create test data frame
 To create test data frame, I repeat create train data frame process.
@@ -174,16 +174,16 @@ history = model.fit(
 ## Results and Predictions
 As a result, the accuracy of this model is 0.9869 with loss 0.0515. The longer the model train, the more accuracy and the lease loss as below.
 
-![The result of model](Result.png)
-![Model accuracy](Model_accuracy.png)
+![The result of model](picture/Result.png)
+![Model accuracy](picture/Model_accuracy.png)
 
 After using this model to predict data in the test data set, the confusion matrix is used to evaluate this model. The True Positive and True Negative is high which means the model can predict mostly correctly as you can see in the report as below.
 
-![Confusion matrix](Confusion_matrix.png)
+![Confusion matrix](picture/Confusion_matrix.png)
 
 ## Prediction Result
 As a result, there are some images that model cannot detect correctly.
 - Text with **BLUE** color : correct
 - Text with **RED** color : wrong
 
-![Prediction Result](DetectExample.png)
+![Prediction Result](picture/DetectExample.png)
